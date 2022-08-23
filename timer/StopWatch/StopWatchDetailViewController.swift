@@ -19,9 +19,9 @@ class StopWatchDetailViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        hoursTextField.delegate = self
-//        minutesTextField.delegate = self
-//        SecondsTextField.delegate = self
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
+        self.view.addGestureRecognizer(tapGesture)
     }
     
     @IBAction func completeButtonTapped(_ sender: Any) {
@@ -40,6 +40,12 @@ class StopWatchDetailViewController: UIViewController {
             vc.dataFromFirstMinutes = 0
         }
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @objc func dismissKeyboard (_ sender: UITapGestureRecognizer) {
+        hoursTextField.resignFirstResponder()
+        minutesTextField.resignFirstResponder()
+        SecondsTextField.resignFirstResponder()
     }
 }
 
@@ -62,7 +68,6 @@ extension StopWatchViewController: UITextFieldDelegate {
         return true
     }
 }
-
 
 
 
