@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Stop Watch View Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="StopWatchViewController" id="Y6W-OH-hqX" customClass="StopWatchViewController" customModule="timer" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00 : 00 : 00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RYN-zR-iCT">
+                                <rect key="frame" x="57" y="94" width="300" height="300"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="ASq-IE-zWv"/>
+                                    <constraint firstAttribute="width" secondItem="RYN-zR-iCT" secondAttribute="height" multiplier="1:1" id="xHB-bg-nNM"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="45"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o7o-Ww-a6o">
+                                <rect key="frame" x="57" y="374" width="60" height="60"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="0.30667942879999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="BjP-4h-xrq"/>
+                                    <constraint firstAttribute="width" secondItem="o7o-Ww-a6o" secondAttribute="height" multiplier="1:1" id="oVH-sO-Q2V"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="리셋"/>
+                                <connections>
+                                    <action selector="resetTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="7oD-3e-9QH"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="타이머시작" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wuy-uy-MSs">
+                                <rect key="frame" x="170" y="291" width="74" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" systemColor="systemGray4Color"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YAc-1a-Bw3">
+                                <rect key="frame" x="297" y="374" width="60" height="60"/>
+                                <color key="backgroundColor" red="0.0" green="0.56031829119999998" blue="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="INB-KX-tK7"/>
+                                    <constraint firstAttribute="width" secondItem="YAc-1a-Bw3" secondAttribute="height" multiplier="1:1" id="l0n-F3-b9S"/>
+                                </constraints>
+                                <color key="tintColor" systemColor="systemGreenColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="시작"/>
+                                <connections>
+                                    <action selector="starstopTapped:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Tcp-D8-fye"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="타이머를 시작합니다!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yPR-Np-OPh" userLabel="물이 다 끓고 난 후, 재료를 다 넣고 타이머를 켜주세요!">
+                                <rect key="frame" x="32" y="526" width="350" height="100"/>
+                                <color key="backgroundColor" white="0.33333333329999998" alpha="0.45165045529999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="Mda-ws-og3"/>
+                                    <constraint firstAttribute="width" constant="350" id="vpx-Pj-DTE"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="YAc-1a-Bw3" firstAttribute="width" secondItem="YAc-1a-Bw3" secondAttribute="height" multiplier="1:1" id="6Lj-WK-ejR"/>
+                            <constraint firstItem="o7o-Ww-a6o" firstAttribute="width" secondItem="o7o-Ww-a6o" secondAttribute="height" multiplier="1:1" id="C5z-2X-nHL"/>
+                            <constraint firstItem="RYN-zR-iCT" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="D2E-B3-lxS"/>
+                            <constraint firstItem="o7o-Ww-a6o" firstAttribute="top" secondItem="RYN-zR-iCT" secondAttribute="bottom" constant="-20" id="DsN-cr-GU7"/>
+                            <constraint firstItem="YAc-1a-Bw3" firstAttribute="trailing" secondItem="RYN-zR-iCT" secondAttribute="trailing" id="ZFk-BB-Lvn"/>
+                            <constraint firstItem="YAc-1a-Bw3" firstAttribute="top" secondItem="RYN-zR-iCT" secondAttribute="bottom" constant="-20" id="Zfj-cC-bBJ"/>
+                            <constraint firstItem="RYN-zR-iCT" firstAttribute="width" secondItem="RYN-zR-iCT" secondAttribute="height" multiplier="1:1" id="dfL-FI-6w0"/>
+                            <constraint firstItem="wuy-uy-MSs" firstAttribute="centerX" secondItem="RYN-zR-iCT" secondAttribute="centerX" id="dsd-Wv-IbO"/>
+                            <constraint firstItem="yPR-Np-OPh" firstAttribute="top" secondItem="YAc-1a-Bw3" secondAttribute="bottom" constant="92" id="jgA-kF-r99"/>
+                            <constraint firstItem="wuy-uy-MSs" firstAttribute="top" secondItem="RYN-zR-iCT" secondAttribute="bottom" constant="-103" id="m1J-P0-NnO"/>
+                            <constraint firstItem="o7o-Ww-a6o" firstAttribute="leading" secondItem="RYN-zR-iCT" secondAttribute="leading" id="mSc-iK-AAF"/>
+                            <constraint firstItem="RYN-zR-iCT" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="50" id="nNZ-gZ-v60"/>
+                            <constraint firstItem="yPR-Np-OPh" firstAttribute="centerX" secondItem="vDu-zF-Fre" secondAttribute="centerX" id="ycx-se-5Hc"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="exampleLabel" destination="yPR-Np-OPh" id="tuB-EH-G6v"/>
+                        <outlet property="miniLabel" destination="wuy-uy-MSs" id="mP8-sY-77a"/>
+                        <outlet property="resetButton" destination="o7o-Ww-a6o" id="lmI-zT-niR"/>
+                        <outlet property="startstopButton" destination="YAc-1a-Bw3" id="VlA-JA-hzW"/>
+                        <outlet property="timeLabel" destination="RYN-zR-iCT" id="Kbf-62-CtD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="41" y="56"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray4Color">
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
