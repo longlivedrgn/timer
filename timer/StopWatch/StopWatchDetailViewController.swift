@@ -7,8 +7,8 @@
 
 import UIKit
 
-class StopWatchDetailViewController: UIViewController {
-
+class StopWatchDetailViewController: UIViewController, UITextFieldDelegate {
+    
     @IBOutlet weak var completeButton: UIButton!
     
     @IBOutlet weak var hoursTextField: UITextField!
@@ -16,14 +16,46 @@ class StopWatchDetailViewController: UIViewController {
     @IBOutlet weak var minutesTextField: UITextField!
     
     @IBOutlet weak var SecondsTextField: UITextField!
+    
+    var fCurTextfieldBottom: CGFloat = 0.0
+    
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
         self.view.addGestureRecognizer(tapGesture)
+        hoursTextField.delegate = self
+        minutesTextField.delegate = self
+        SecondsTextField.delegate = self
+        hoursTextField.returnKeyType = .done
+        minutesTextField.returnKeyType = .done
+        SecondsTextField.returnKeyType = .done
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        fCurTextfieldBottom = textField.frame.origin.y + textField.frame.height
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+       if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+           if fCurTextfieldBottom <= self.view.frame.height - keyboardSize.height {
+               return
+           }
+           if self.view.frame.origin.y == 0 {
+               self.view.frame.origin.y -= keyboardSize.height
+           }
+       }
+    }
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
+    }
+
+
     @IBAction func completeButtonTapped(_ sender: Any) {
         
         let storyboard = UIStoryboard(name: "StopWatch", bundle: nil)
@@ -46,6 +78,21 @@ class StopWatchDetailViewController: UIViewController {
         hoursTextField.resignFirstResponder()
         minutesTextField.resignFirstResponder()
         SecondsTextField.resignFirstResponder()
+    }
+    
+    // 토큰 설정하기
+    var willShowToken: NSObjectProtocol?
+    var willHideToken: NSObjectProtocol?
+    
+    // 옵져버 해제하기
+    deinit {
+        if let token = willShowToken {
+            NotificationCenter.default.removeObserver(token)
+        }
+        
+        if let token = willHideToken {
+            NotificationCenter.default.removeObserver(token)
+        }
     }
 }
 
