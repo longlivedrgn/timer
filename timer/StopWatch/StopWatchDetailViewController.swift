@@ -28,9 +28,6 @@ class StopWatchDetailViewController: UIViewController, UITextFieldDelegate {
         hoursTextField.delegate = self
         minutesTextField.delegate = self
         SecondsTextField.delegate = self
-        hoursTextField.returnKeyType = .done
-        minutesTextField.returnKeyType = .done
-        SecondsTextField.returnKeyType = .done
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
@@ -41,6 +38,7 @@ class StopWatchDetailViewController: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
+    // 현재 선택된 텍스트필드의 아래 꼭지점의 위치 계산하기
     func textFieldDidBeginEditing(_ textField: UITextField) {
         fCurTextfieldBottom = textField.frame.origin.y + textField.frame.height
     }
@@ -48,8 +46,10 @@ class StopWatchDetailViewController: UIViewController, UITextFieldDelegate {
     @objc func keyboardWillShow(notification: NSNotification) {
        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
            if fCurTextfieldBottom <= self.view.frame.height - keyboardSize.height {
+               // 만약 키보드가 가지지 않으면 return을 통하여 끝냄!
                return
            }
+           // 키보드가 가리면 그 만큼 내린다!
            if self.view.frame.origin.y == 0 {
                self.view.frame.origin.y -= keyboardSize.height
            }
@@ -68,7 +68,7 @@ class StopWatchDetailViewController: UIViewController, UITextFieldDelegate {
         
         let vc = storyboard.instantiateViewController(withIdentifier: "StopWatchViewController") as! StopWatchViewController
         
-        if let hourvalue = Int(hoursTextField.text!), let minutevalue = Int(minutesTextField.text!), let secondvalue = Int(SecondsTextField.text!){
+        if let hourvalue = Int(hoursTextField.text ?? "0" ), let minutevalue = Int(minutesTextField.text!), let secondvalue = Int(SecondsTextField.text!){
             vc.dataFromFirstHours = hourvalue
             vc.dataFromFirstMinutes = minutevalue
             vc.dataFromFirstSeconds = secondvalue

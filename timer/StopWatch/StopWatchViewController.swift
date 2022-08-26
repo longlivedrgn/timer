@@ -19,11 +19,18 @@ class StopWatchViewController: UIViewController {
     var dataFromFirstMinutes : Int = 0
     var dataFromFirstSeconds : Int = 0
     
+    var dFFH: Int = 0
+    var dFFM: Int = 0
+    var dFFS: Int = 0
+
     var timer:Timer = Timer()
     var timeCounting: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        dFFH = dataFromFirstHours
+        dFFM = dataFromFirstMinutes
+        dFFS = dataFromFirstSeconds
         timeLabelSetUp()
         elseSetUp()
         exampleLabel.layer.masksToBounds = true
@@ -44,7 +51,10 @@ class StopWatchViewController: UIViewController {
     
     @IBAction func resetTapped(_ sender: Any) {
         self.timer.invalidate()
-        self.timeLabel.text = self.makeTimeString(hours: 0, minutes: 0, seconds: 0)
+        self.timeLabel.text = self.makeTimeString(hours: dFFH, minutes: dFFM, seconds: dFFS)
+        dataFromFirstSeconds = dFFS
+        dataFromFirstHours = dFFH
+        dataFromFirstMinutes = dFFM
         self.startstopButton.setTitle("시작", for: .normal)
         startstopButton.setTitleColor(UIColor.green, for: .normal)
         startstopButton.backgroundColor = UIColor.green.withAlphaComponent(0.3)
@@ -77,6 +87,7 @@ class StopWatchViewController: UIViewController {
         let timeString = makeTimeString(hours: time.0, minutes: time.1, seconds: time.2)
         timeLabel.text = timeString
     }
+    
     func secondsToHoursMinutesSeconds(seconds: Int) -> (Int, Int, Int)
     {
         return ((seconds / 3600), ((seconds % 3600) / 60),((seconds % 3600) % 60))
