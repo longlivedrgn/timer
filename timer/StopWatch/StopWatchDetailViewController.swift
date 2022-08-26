@@ -68,15 +68,34 @@ class StopWatchDetailViewController: UIViewController, UITextFieldDelegate {
         
         let vc = storyboard.instantiateViewController(withIdentifier: "StopWatchViewController") as! StopWatchViewController
         
-        if let hourvalue = Int(hoursTextField.text ?? "0" ), let minutevalue = Int(minutesTextField.text!), let secondvalue = Int(SecondsTextField.text!){
-            vc.dataFromFirstHours = hourvalue
-            vc.dataFromFirstMinutes = minutevalue
-            vc.dataFromFirstSeconds = secondvalue
+        if let hoursText = hoursTextField.text, !hoursText.isEmpty{
+            vc.dataFromFirstHours = Int(hoursText)!
         } else {
             vc.dataFromFirstHours = 0
-            vc.dataFromFirstSeconds = 0
+        }
+        
+        if let minutesText = minutesTextField.text, !minutesText.isEmpty{
+            vc.dataFromFirstMinutes = Int(minutesText)!
+        } else {
             vc.dataFromFirstMinutes = 0
         }
+        
+        if let secondText = SecondsTextField.text, !secondText.isEmpty{
+            vc.dataFromFirstSeconds = Int(secondText)!
+        } else {
+            vc.dataFromFirstSeconds = 0
+        }
+//
+//
+//        if let hourvalue = Int(hoursTextField.text ?? "0" ), let minutevalue = Int(minutesTextField.text ?? "0"), let secondvalue = Int(SecondsTextField.text ?? "0"){
+//
+//            vc.dataFromFirstMinutes = minutevalue
+//            vc.dataFromFirstSeconds = secondvalue
+//        } else {
+//            vc.dataFromFirstHours = 0
+//            vc.dataFromFirstSeconds = 0
+//            vc.dataFromFirstMinutes = 0
+//        }
         navigationController?.pushViewController(vc, animated: true)
     }
     
