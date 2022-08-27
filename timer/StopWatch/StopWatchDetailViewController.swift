@@ -1,10 +1,3 @@
-//
-//  StopWatchDetailViewController.swift
-//  timer
-//
-//  Created by 김용재 on 2022/08/08.
-//
-
 import UIKit
 
 class StopWatchDetailViewController: UIViewController, UITextFieldDelegate {
@@ -19,15 +12,18 @@ class StopWatchDetailViewController: UIViewController, UITextFieldDelegate {
     
     var fCurTextfieldBottom: CGFloat = 0.0
     
-
-
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard (_:)))
         self.view.addGestureRecognizer(tapGesture)
         hoursTextField.delegate = self
         minutesTextField.delegate = self
         SecondsTextField.delegate = self
+        hoursTextField.smartInsertDeleteType = UITextSmartInsertDeleteType.no
+        SecondsTextField.smartInsertDeleteType = UITextSmartInsertDeleteType.no
+        minutesTextField.smartInsertDeleteType = UITextSmartInsertDeleteType.no
+        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
@@ -38,6 +34,35 @@ class StopWatchDetailViewController: UIViewController, UITextFieldDelegate {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let textFieldText = hoursTextField.text,
+            let rangeOfTextToReplace = Range(range, in: textFieldText) else {
+                return false
+        }
+        let substringToReplace = textFieldText[rangeOfTextToReplace]
+        let count = textFieldText.count - substringToReplace.count + string.count
+        return count <= 10
+        
+//        //
+//        guard let textFieldTextmin = minutesTextField.text,
+//            let rangeOfTextToReplace = Range(range, in: textFieldTextmin) else {
+//                return false
+//        }
+//        let substringToReplacemin = textFieldTextmin[rangeOfTextToReplace]
+//        let countmin = textFieldTextmin.count - substringToReplacemin.count + string.count
+//        return countmin <= 10
+//
+//        //
+//        guard let textFieldTextsec = SecondsTextField.text,
+//            let rangeOfTextToReplace = Range(range, in: textFieldTextsec) else {
+//                return false
+//        }
+//        let substringToReplacesec = textFieldTextsec[rangeOfTextToReplace]
+//        let countsec = textFieldTextsec.count - substringToReplacesec.count + string.count
+//        return countsec <= 10
+//
+        
+    }
     // 현재 선택된 텍스트필드의 아래 꼭지점의 위치 계산하기
     func textFieldDidBeginEditing(_ textField: UITextField) {
         fCurTextfieldBottom = textField.frame.origin.y + textField.frame.height
@@ -85,17 +110,6 @@ class StopWatchDetailViewController: UIViewController, UITextFieldDelegate {
         } else {
             vc.dataFromFirstSeconds = 0
         }
-//
-//
-//        if let hourvalue = Int(hoursTextField.text ?? "0" ), let minutevalue = Int(minutesTextField.text ?? "0"), let secondvalue = Int(SecondsTextField.text ?? "0"){
-//
-//            vc.dataFromFirstMinutes = minutevalue
-//            vc.dataFromFirstSeconds = secondvalue
-//        } else {
-//            vc.dataFromFirstHours = 0
-//            vc.dataFromFirstSeconds = 0
-//            vc.dataFromFirstMinutes = 0
-//        }
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -120,26 +134,4 @@ class StopWatchDetailViewController: UIViewController, UITextFieldDelegate {
         }
     }
 }
-
-extension StopWatchViewController: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        let charSet: CharacterSet = {
-            var cs = CharacterSet.lowercaseLetters
-            cs.insert(charactersIn: "0123456789")
-            cs.insert(charactersIn: "-")
-            return cs.inverted
-        }()
-
-        
-        if string.count > 0 {
-            guard string.rangeOfCharacter(from: charSet) == nil else{
-                return false
-            }
-        }
-        return true
-    }
-}
-
-
 
