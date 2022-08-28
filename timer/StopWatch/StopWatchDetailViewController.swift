@@ -35,14 +35,34 @@ class StopWatchDetailViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard let textFieldText = hoursTextField.text,
-            let rangeOfTextToReplace = Range(range, in: textFieldText) else {
-                return false
+        if textField == hoursTextField {
+            guard let textFieldText = hoursTextField.text,
+                let rangeOfTextToReplace = Range(range, in: textFieldText) else {
+                    return false
+            }
+            let substringToReplace = textFieldText[rangeOfTextToReplace]
+            let count = textFieldText.count - substringToReplace.count + string.count
+            return count <= 2
+        } else if textField == minutesTextField {
+            guard let textFieldText = minutesTextField.text,
+                let rangeOfTextToReplace = Range(range, in: textFieldText) else {
+                    return false
+            }
+            let substringToReplace = textFieldText[rangeOfTextToReplace]
+            let count = textFieldText.count - substringToReplace.count + string.count
+            return count <= 2
+            
+        } else {
+            guard let textFieldText = SecondsTextField.text,
+                let rangeOfTextToReplace = Range(range, in: textFieldText) else {
+                    return false
+            }
+            let substringToReplace = textFieldText[rangeOfTextToReplace]
+            let count = textFieldText.count - substringToReplace.count + string.count
+            return count <= 2
         }
-        let substringToReplace = textFieldText[rangeOfTextToReplace]
-        let count = textFieldText.count - substringToReplace.count + string.count
-        return count <= 10
-        
+        return true
+    }
 //        //
 //        guard let textFieldTextmin = minutesTextField.text,
 //            let rangeOfTextToReplace = Range(range, in: textFieldTextmin) else {
@@ -61,8 +81,6 @@ class StopWatchDetailViewController: UIViewController, UITextFieldDelegate {
 //        let countsec = textFieldTextsec.count - substringToReplacesec.count + string.count
 //        return countsec <= 10
 //
-        
-    }
     // 현재 선택된 텍스트필드의 아래 꼭지점의 위치 계산하기
     func textFieldDidBeginEditing(_ textField: UITextField) {
         fCurTextfieldBottom = textField.frame.origin.y + textField.frame.height
